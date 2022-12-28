@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/students")
 public class StudentController {
 
     private final StudentService service;
 
-    @GetMapping("students")
+    @GetMapping
     public String getAllStudents(Model model) {
         model.addAttribute("students", service.getAllStudents());
         return "students";
@@ -41,7 +42,7 @@ public class StudentController {
     }
 
     @PostMapping("students/{id}")
-    public String updateStudent(@PathVariable Long id, @ModelAttribute("student") Student student, Model model) {
+    public String updateStudent(@PathVariable Long id, @ModelAttribute("student") Student student) {
         Student currentStudent = service.getStudentById(id);
         currentStudent.setId(id);
         currentStudent.setFirstName(student.getFirstName());
@@ -51,8 +52,9 @@ public class StudentController {
         return "redirect:/students";
     }
 
-    @DeleteMapping("/students/{id}")
-    public String deleteStudent(@PathVariable Long id, Model model) {
+
+    @GetMapping("/students/{id}")
+    public String deleteStudent(@PathVariable Long id) {
         service.deleteStudentById(id);
         return "redirect:/students";
 

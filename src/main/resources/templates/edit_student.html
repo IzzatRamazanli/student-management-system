@@ -42,22 +42,22 @@
                     <div class="form-group">
                         <label>Student First Name</label>
                         <input type="text" name="firstName" class="form-control"
-                               th:value = "*{__${firstName}__}"
-                               placeholder="Enter Student First name" required>
+                               th:value="*{__${firstName}__}"
+                               th:placeholder="${student.firstName}">
                     </div>
 
                     <div class="form-group">
                         <label>Student Last Name</label>
                         <input type="text" name="lastName" class="form-control"
                                th:value="*{__${lastName}__}"
-                               placeholder="Enter Student Last Name" required>
+                               th:placeholder="${student.lastName}" >
                     </div>
 
                     <div class="form-group">
                         <label>Student Email</label>
                         <input type="text" name="email" class="form-control"
                                th:value="*{__${email}__}"
-                               placeholder="Enter Student Email" required>
+                               th:placeholder="${student.email}">
                     </div>
                     <div class="box">
                         <button type="submit" class="btn btn-primary">Update Student</button>
