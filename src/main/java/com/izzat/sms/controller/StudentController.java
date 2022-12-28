@@ -5,9 +5,7 @@ import com.izzat.sms.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -34,5 +32,29 @@ public class StudentController {
     public String saveStudent(@ModelAttribute("student") Student student) {
         service.saveStudent(student);
         return "redirect:/students";
+    }
+
+    @GetMapping("/students/update/{id}")
+    public String updateStudentForm(@PathVariable Long id, Model model) {
+        model.addAttribute("student", service.getStudentById(id));
+        return "edit_student";
+    }
+
+    @PostMapping("students/{id}")
+    public String updateStudent(@PathVariable Long id, @ModelAttribute("student") Student student, Model model) {
+        Student currentStudent = service.getStudentById(id);
+        currentStudent.setId(id);
+        currentStudent.setFirstName(student.getFirstName());
+        currentStudent.setLastName(student.getLastName());
+        currentStudent.setEmail(student.getEmail());
+        service.updateStudent(currentStudent);
+        return "redirect:/students";
+    }
+
+    @DeleteMapping("/students/{id}")
+    public String deleteStudent(@PathVariable Long id, Model model) {
+        service.deleteStudentById(id);
+        return "redirect:/students";
+
     }
 }
